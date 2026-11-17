@@ -11,6 +11,11 @@ body {
   display: flex;
   flex-direction: column;
   max-width: 650px;
+  margin: 0 auto;
+}
+
+.heading {
+  color: #3886ca;
 }
 
 .chat-box {
@@ -20,4 +25,97 @@ body {
   overflow-y: auto;
   border: 1px solid black;
   border-radius: 10px;
+}
+
+.message {
+  max-width: 85%;
+  padding: 0.6rem 0.9rem;
+  border-radius: 12px;
+}
+
+.message p {
+  margin: 0.2rem 0 0;
+  white-space: pre-wrap;
+}
+
+.message.tina {
+  align-self: flex-start;
+  background: #f1f5f9;
+}
+
+.message.user {
+  align-self: flex-start;
+  color: black;
+  background: #f1f5f9;
+}
+
+.typing {
+  margin: 0;
+  font-style: italic;
+  color: #475569;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+textarea {
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  border: 1px solid #94a3b8;
+  border-radius: 8px;
+  resize: vertical;
+}
+
+textarea:disabled {
+  background: #e2e8f0;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+button {
+  padding: 0.7rem 1.2rem;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: #3886ca;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  color: #334155;
+  background: #fff;
+  border: 1px solid #94a3b8;
+}
+
+button.secondary:disabled {
+  color: #94a3b8;
+}
+
+textarea:focus-visible,
+button:focus-visible {
+  outline: 3px solid #3886ca;
+  outline-offset: 2px;
+}
+
+.error {
+  margin: 0;
+  color: #b91c1c;
+}
+
+.finished {
+  margin: 0;
+  font-weight: 600;
 }

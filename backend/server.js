@@ -4,7 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 import { buildTinaPrompt, buildRecommendationPrompt } from "./prompts.js";
 
 const TOTAL_CUSTOMER_MESSAGES = 7;
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
 
 if (!process.env.API_KEY_GEMINI) {
   console.error("Missing API_KEY_GEMINI in backend/.env");
@@ -48,8 +48,9 @@ app.post("/api/chat", async (req, res) => {
     return res.status(400).json({ error: "Invalid conversation." });
   }
 
-  // check half of the messages are from the customer
-  const customerMessages = messages.length / 2;
+  const customerMessages = messages.filter(
+    (message) => message.role === "user",
+  ).length;
 
   // Decide what Tina does now: ask another question, or give the recommendation
   const isFinalTurn = customerMessages >= TOTAL_CUSTOMER_MESSAGES;
@@ -81,6 +82,9 @@ app.post("/api/chat", async (req, res) => {
     res.json({ reply: response.text.trim(), finished: isFinalTurn });
   } catch (err) {
     console.error("Gemini error:", err);
+    console.error("Status:", err.status);
+    console.error("Message:", err.message);
+    console.error("Details:", err.response?.data);
     if (err.status === 429) {
       return res.status(429).json({
         error: "Too many requests. Please wait a minute and try again.",
