@@ -1,0 +1,19 @@
+# node.js installed image
+FROM node:24-alpine
+
+# commands run inside this folder in container
+WORKDIR /app
+
+# copy and install
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# then copy rest of the code
+COPY . .
+
+# server port
+ENV PORT=4000
+EXPOSE 4000
+
+# start server when container runs
+CMD ["node", "server.js"]
