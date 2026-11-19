@@ -82,9 +82,6 @@ app.post("/api/chat", async (req, res) => {
     res.json({ reply: response.text.trim(), finished: isFinalTurn });
   } catch (err) {
     console.error("Gemini error:", err);
-    console.error("Status:", err.status);
-    console.error("Message:", err.message);
-    console.error("Details:", err.response?.data);
     if (err.status === 429) {
       return res.status(429).json({
         error: "Too many requests. Please wait a minute and try again.",

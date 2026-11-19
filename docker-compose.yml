@@ -1,0 +1,15 @@
+services:
+  # The Express server
+  backend:
+    build: ./backend # build the image from backend/Dockerfile
+    env_file: ./backend/.env # pass the secrets when the container starts
+    restart: unless-stopped
+
+  # nginx + the React page
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80" # laptop port 8080 -> container port 80
+    depends_on:
+      - backend # start the backend first
+    restart: unless-stopped
